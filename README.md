@@ -1,44 +1,77 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# INFPRJ01D - Frontend
 
-## Available Scripts
+## Getting started
 
-In the project directory, you can run:
+### Prerequisites
 
-### `npm start`
+* [Node](https://nodejs.org/en/download/)
+* [React](https://reactjs.org/)
+* [TypeScript](https://www.typescriptlang.org/)
+* [Docker](https://www.docker.com/)
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Installation with Docker
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+Clone the repository and switch to the fe-master branch:
 
-### `npm test`
+```bash
+git clone git@github.com:UNRULYEON/INFPRJ01D.git
+cd INFPRJ01D
+git checkout fe-master
+```
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Build and run in `-d` (detached) mode with Compose.
 
-### `npm run build`
+```bash
+docker-compose up -d
+```
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Running this command withoud `-d` will let you see the output.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+See what's currently running:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+docker-compose ps
+```
 
-### `npm run eject`
+Stop the service once you're done:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```bash
+docker-compose stop
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Bring down and remove the container:
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```bash
+docker-compose down
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+When any dependecies change, you probably will need to rebuild the container
+for the changes to take effect:
 
-## Learn More
+```bash
+docker-compose down
+docker-compose build
+docker-compose up
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Installation without Docker
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Clone the repository and switch to the fe-master branch:
+
+```bash
+git clone git@github.com:UNRULYEON/INFPRJ01D.git
+git checkout fe-master
+```
+
+Install all dependencies:
+
+```bash
+cd INFPRJ01D
+npm install
+```
+
+Run the React project:
+
+```bash
+npm run start
+```
