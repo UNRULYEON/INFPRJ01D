@@ -1,0 +1,15 @@
+.Header--container {
+  grid-area: header;
+  background-color: #1917f7;
+  height: 64px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  padding: 0 16px;
+  color: white;
+}
+
+#Header--company-name {
+  font-size: 2em;
+  font-weight: 700;
+}
