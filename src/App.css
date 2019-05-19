@@ -2,10 +2,15 @@
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: 50px 1fr;
+  grid-template-columns: 200px 1fr;
   grid-template-rows: 64px 1fr 1fr;
   grid-template-areas:
   "header header"
   "sidebar main"
-  "footer footer";
+  "sidebar main";
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }

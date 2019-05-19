@@ -1,0 +1,26 @@
+.Navbar--container {
+  grid-area: sidebar;
+  margin: 50px 0;
+  padding: 20px 0;
+  border-right: 1px solid #555555;
+}
+
+.Navbar--item{
+  color: #1917f7;
+  display: block;
+  padding: 10px 20px 10px 77px;
+  margin-right: 20px;
+  margin-left: -30px;
+  border-radius: 50px;
+}
+
+.Navbar--item-active{
+  color: white;
+  background: rgba(25, 23, 247, 1);
+  padding: 10px 20px 10px 60px;
+}
+
+.Navbar--item-active::before{
+  content: '•';
+  margin-right: 10px;
+}
