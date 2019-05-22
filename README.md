@@ -52,6 +52,33 @@ docker-compose build
 docker-compose up
 ```
 
+### Connecting to VPS
+
+The VPS is on DigitalOcean with ip ```142.93.141.46```. Connect to the VPS with ```shh```:
+
+```bash
+ssh root@142.93.141.46
+```
+
+Go into the folder:
+
+```bash
+cd INFPRJ01D/
+```
+
+Pull the latest commits if there are any:
+
+```bash
+git pull
+```
+
+And stop the old instance and start the new one:
+
+```bash
+docker-compose down
+docker-compose up
+```
+
 ### Installation without Docker
 
 Clone the repository and switch to the fe-master branch:
