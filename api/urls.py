@@ -1,9 +1,10 @@
 from django.urls import path
+from rest_framework.urlpatterns import format_suffix_patterns
 from . import views
 
-app_name = "API"
-
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('sales/', views.Sales.as_view(), name='sales'),
+    path('sales/', views.sales_all),
+    path('sales/<int:id>', views.sales_detail),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
