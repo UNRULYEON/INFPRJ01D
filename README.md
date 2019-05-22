@@ -66,18 +66,15 @@ Go into the folder:
 cd INFPRJ01D/
 ```
 
-Pull the latest commits if there are any:
-
-```bash
-git pull
-```
-
-And stop the old instance and start the new one:
+Pull the latest commits, stop the old instance and start the new one:
 
 ```bash
 docker-compose down
-docker-compose up
+git pull
+docker-compose up -d
 ```
+
+Don't forget the ```-d```, otherwise the instance will exit.
 
 ### Installation without Docker
 
