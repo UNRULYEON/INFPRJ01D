@@ -5,7 +5,8 @@ from . import views
 urlpatterns = [
     path('sales', views.GetProduct.as_view()),
     path('sales/predict/<int:pk>', views.predict),
-    path('sales/train/<int:pk>', views.train)
+    # Disabled for now. Opted to train the model outside the API.
+    # path('sales/train/<int:pk>', views.train)
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

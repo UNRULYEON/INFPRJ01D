@@ -1,15 +1,14 @@
 import pandas as pd
 import numpy as np
-import time
+import os
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
 from keras import optimizers
 from keras.callbacks import ModelCheckpoint
-from keras.models import Sequential, Model, load_model
+from keras.models import Sequential, load_model
 from keras.layers import LSTM, Dense, Dropout
-from keras import backend as K
-LOOKBACK = 7
-PREDICTION = 1
+
+
 def createLaggedFrame(data, window=1, lag=1, dropnan=True):
     cols, names = list(), list()
     for i in range(window, 0, -1):
@@ -25,8 +24,7 @@ def createLaggedFrame(data, window=1, lag=1, dropnan=True):
         agg.dropna(inplace=True)
     return agg
 
-def cleanUpDataframe(data):
-    columns_to_drop = [('%s(t+%d)' % (col, PREDICTION)) for col in ['stock']]
+def cleanUpDataframe(data, PREDICTION):
     labels_col = 'stock(t+%d)' % PREDICTION
     labels = data[labels_col]
     series = data.drop(labels_col, axis=1)
@@ -45,28 +43,28 @@ def build_model(X_vals):
     model_lstm.compile(loss='mse', optimizer=adam, metrics=['mape'])
     return model_lstm
 
-def model_fit(xT, yT, xV, yV, productId, modelPath=None):
+def model_fit(xT, yT, xV, yV, productId):
     model = None
-    if(modelPath is None):
-        model = build_model(xT)
+    filepath = (f"./models/Product-{productId}.model")
+    if(os.path.exists(filepath)):
+        model = load_model(filepath)
+        print("found model")
     else:
-        # load model lol
-        model.load(modelPath)
-    filepath = f"Product-{productId}"
-    checkpoint = ModelCheckpoint("./api/models/{}.model".format(filepath, monitor='val_loss', verbose=1, save_best_only=True, mode='max')) # saves only the best ones
+        model = build_model(xT)
+    checkpoint = ModelCheckpoint(filepath, monitor='val_mean_absolute_percentage_error', verbose=1, save_best_only=True, mode='min')
     model.fit(
         xT,
         xV,
-        epochs=3,
+        epochs=100,
         batch_size=70,
         validation_data=(yT, yV),
         verbose=2,
         callbacks=[checkpoint]
-    )   
+    )
 def model_loader(productId):
     return load_model(f"./api/models/Product-{productId}.model")
 
 
 def forecast(fit_model, previous_data, data_length, steps=1):
-    previous_data = np.array(previous_data).reshape(1,1,data_length+1)
+    previous_data = np.array(previous_data).reshape(1, 1, data_length+1)
     return fit_model.predict(previous_data, steps=steps)
