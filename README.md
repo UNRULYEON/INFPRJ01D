@@ -93,6 +93,19 @@ pip install -r requirements.txt
 
 Run the React project:
 
-```bash
+```bash localhost
 python manage.py runserver
+```
+
+### Training the model
+To train the model run:
+```bash
+python model_trainer.py
+```
+
+### Getting a prediction
+
+Go to the following website with your desired product id.
+```
+http://localhost:8000/api/sales/predict/PRODUCTID
 ```
