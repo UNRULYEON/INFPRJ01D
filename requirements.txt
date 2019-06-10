@@ -56,3 +56,4 @@ Werkzeug==0.14.1
 wrapt==1.11.1
 requests==2.22.0
 scikit-learn==0.20.2
+joblib==0.13.2
