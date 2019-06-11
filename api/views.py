@@ -37,7 +37,7 @@ class GetProduct(generics.ListCreateAPIView):
 
 @api_view(['GET'])
 def predict(request, pk):
-    response = requests.get(f"http://localhost:8000/api/sales?stock={pk}")
+    response = requests.get(f"http://localhost:8000/api/sales?item={pk}")
     jsonObject = response.json()
     main_df = pd.DataFrame(jsonObject)
     forecast_df = main_df.tail(5)
