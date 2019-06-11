@@ -19,20 +19,20 @@ class SalesAll(generics.ListCreateAPIView):
     """
     queryset = models.Sales.objects.all()
     serializer_class = serializers.SalesSerializer
-    filter_backends = (DjangoFilterBackend,)
-    filterset_fields = ('stock', 'date',)
-    queryset = queryset.order_by('-date')
+#    filter_backends = (DjangoFilterBackend,)
+#    filterset_fields = ('stock', 'date',)
+#    queryset = queryset.order_by('-date')
 
 
 class GetProduct(generics.ListCreateAPIView):
     queryset = models.Sales.objects.all()
     serializer_class = serializers.SalesSerializer
     filter_backends = (DjangoFilterBackend,)
-    filterset_fields = ('stock', 'date',)
+    filterset_fields = ('item', 'location', 'type')
     pagination_class = LimitOffsetPagination
     
     def get_object(self, *args, **kwargs):
-        return self.queryset.filter(stock=kwargs.get('stock'))
+        return self.queryset.filter(stock=kwargs.get('year'))
 
 
 @api_view(['GET'])
@@ -41,6 +41,7 @@ def predict(request, pk):
     jsonObject = response.json()
     main_df = pd.DataFrame(jsonObject)
     forecast_df = main_df.tail(5)
+    forecast_df = forecast_df.drop('id', axis=1)
     forecast_df.head()
     forecast_df = df_preprocessing(forecast_df,False)
     forecast_df = forecast_df.values.flatten()

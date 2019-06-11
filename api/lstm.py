@@ -95,10 +95,10 @@ def df_preprocessing(data, fitted_scaler=True):
     features = scaled_features[min_max_col_names]
     if(fitted_scaler):
         scaler = MinMaxScaler().fit(features.values)
-        dump(scaler, 'scaler.joblib') 
+        dump(scaler, './scaler.joblib') 
         print("not found")
     else:
-        scaler = load('scaler.joblib')
+        scaler = load('./api/scaler.joblib')
         print("loaded")
     features = scaler.transform(features.values)
     scaled_features[min_max_col_names] = features
