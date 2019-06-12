@@ -23,6 +23,13 @@ class SalesAll(generics.ListCreateAPIView):
 #    filterset_fields = ('stock', 'date',)
 #    queryset = queryset.order_by('-date')
 
+class ProductsAll(generics.ListCreateAPIView):
+    """
+    List all products or create a new product
+    """
+    queryset = models.Products.objects.all()
+    serializer_class = serializers.ProductsSerializer
+
 
 class GetProduct(generics.ListCreateAPIView):
     queryset = models.Sales.objects.all()
