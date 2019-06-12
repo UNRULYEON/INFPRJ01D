@@ -8,7 +8,7 @@ from keras.callbacks import ModelCheckpoint
 from keras.models import Sequential, load_model
 from keras.layers import LSTM, Dense, Dropout, BatchNormalization
 from joblib import dump, load
-
+import keras.backend as K
 np.random.seed(0)
 def createLaggedFrame(data, window=1, lag=1, dropnan=True):
     cols, names = list(), list()
@@ -61,6 +61,7 @@ def model_fit(xT, yT, xV, yV):
     model = None
     filepath = (f"./models/Product.model")
     if(os.path.exists(filepath)):
+        K.clear_session()
         model = load_model(filepath)
         print("found model")
     else:
