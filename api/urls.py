@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
     path('products', views.ProductsAll.as_view()),
-    path('sales', views.SalesAll.as_view())
+    path('sales', views.SalesAll.as_view()),
     path('sales/predict/<int:pk>', views.predict),
     #path('sales', views.GetProduct.as_view()),
     #path('sales/predict/<int:pk>', views.predict),
