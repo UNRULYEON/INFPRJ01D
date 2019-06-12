@@ -20,11 +20,11 @@ import Table from './components/table';
 
 // const rowData = (row: { title: any; principalmaker: any; amountofpaintings: number; }) => [row.id, row.item, row.stock]
 
-const data = [{
-  id: 0,
-  item: 26,
-  stock: 50
-},]
+// const data = [{
+//   id: 0,
+//   item: 26,
+//   stock: 50
+// },]
 
 const rowData = (row: { id: number; name: string; stock: number; }) => [row.id, row.name, row.stock]
 
@@ -32,7 +32,7 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <Header />
-      <Table id="id" name="name" stock="stock" renderRow={rowData} data={data} />
+      <Table id="id" name="name" renderRow={rowData}/>
       <Navbar />
     </div>
   );

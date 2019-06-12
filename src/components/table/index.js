@@ -24,6 +24,8 @@ class Tables extends Component {
     super(props)
     this.state = {
       data: [],
+      dialogIsOpen: false,
+      key: 0,
     };
   }
 
@@ -34,6 +36,18 @@ class Tables extends Component {
       .catch(error => {
         console.log("something bad happened somewhere, rollback!" + error);
       });
+  }
+
+  // handleRowclick puts the selected row index to the key state and also calls the handeclick method which changes the dialogIsOpen state
+  handleRowClick(index) {
+    this.setState({
+      key: index,
+    })
+    this.handleClick()
+  }
+
+  handleClick = () => {
+    this.setState(state => ({ dialogIsOpen: !state.dialogIsOpen, }));
   }
 
   render() {
@@ -50,7 +64,7 @@ class Tables extends Component {
             <TableBody>
               {
                 this.state.data.map((row, index) => (
-                  <TableRow key={index}>
+                  <TableRow onClick={()=>this.handleRowClick(index)} key={index}>
                     {this.props.renderRow(row).map(item => <TableCell>{item}</TableCell>)}
                   </TableRow>
                 ))
@@ -79,6 +93,12 @@ class Tables extends Component {
             </TableBody>
           </Table> */}
         </Paper>
+        {this.state.dialogIsOpen ? 
+
+          console.log("open dialog with key: " + this.state.key) 
+          
+          : console.log("No Dialog")}
+          {/* @dines als je in je component een knop maakt met 'sluiten' ofzo verander dan ook de state van dialogIsOpen, dit doe je door handleClick aan te roepen */}
       </div>
     )
   }
