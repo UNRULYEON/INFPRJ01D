@@ -1,1 +1,4 @@
 node_modules
+
+./INFPRJ01D/__pycache__/
+./api/__pycache__/
