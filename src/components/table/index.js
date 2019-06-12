@@ -8,45 +8,60 @@ import Paper from '@material-ui/core/Paper';
 
 // Placeholder
 let id = 0;
-function createData(name, calories, fat, carbs, protein) {
+function createData(item, stock) {
   id += 1;
-  return { id, name, calories, fat, carbs, protein };
+  return { id, item, stock };
 }
 
-// Placeholder data, echte data komt van de view waar deze component wordt aangeroepen
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+// const randomData = [
+//   createData(2, 20),
+//   createData(6, 62),
+//   createData(1, 31),
+// ];
 
 class Tables extends Component {
   constructor(props) {
     super(props)
     this.state = {
-    }
+      data: null,
+    };
   }
 
+  componentDidMount() {
+    fetch('http://142.93.141.46:8000/api/sales', {
+      mode: 'no-cors',
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(response => {
+        console.log(response) // this contains some useful information about the reponse
+        // return response; // convert readable stream to js object, if json is invalid, you will get the error here
+      })
+      // .then(data => this.setState({ data }))
+      .catch(error => {
+        console.log("something bad happened somewhere, rollback!" + error);
+      });
+    // console.log(this.state.data);
+  }
 
 
   render() {
     return (
       <div>
         <Paper>
-
-
           <Table>
             <TableHead>
               <TableRow>
-                {/* <TableCell> {this.props.title} </TableCell> */}
-                {/* <TableCell> {this.props.painter} </TableCell> */}
-                {/* <TableCell> {this.props.colomnName}</TableCell> */}
+                <TableCell> {this.props.id} </TableCell>
+                <TableCell> {this.props.item} </TableCell>
+                <TableCell> {this.props.stock}</TableCell>
 
               </TableRow>
             </TableHead>
-            {/* <TableBody>
+            <TableBody>
               {
                 this.props.data.map(row => (
                   <TableRow>
@@ -54,35 +69,29 @@ class Tables extends Component {
                   </TableRow>
                 ))
               }
-            </TableBody> */}
+            </TableBody>
           </Table>
 
 
           {/* Placeholder table */}
-          <Table>
+          {/* <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Dessert (100g serving)</TableCell>
-                <TableCell align="right">Calories</TableCell>
-                <TableCell align="right">Fat (g)</TableCell>
-                <TableCell align="right">Carbs (g)</TableCell>
-                <TableCell align="right">Protein (g)</TableCell>
+                <TableCell align="right">ID</TableCell>
+                <TableCell align="right">Item</TableCell>
+                <TableCell align="right">Stock</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map(row => (
-                <TableRow key={row.id}>
-                  <TableCell component="th" scope="row">
-                    {row.name}
-                  </TableCell>
-                  <TableCell align="right">{row.calories}</TableCell>
-                  <TableCell align="right">{row.fat}</TableCell>
-                  <TableCell align="right">{row.carbs}</TableCell>
-                  <TableCell align="right">{row.protein}</TableCell>
+              {randomData.map(row => (
+                <TableRow>
+                  <TableCell align="right">{row.id}</TableCell>
+                  <TableCell align="right">{row.item}</TableCell>
+                  <TableCell align="right">{row.stock}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
-          </Table>
+          </Table> */}
         </Paper>
       </div>
     )
