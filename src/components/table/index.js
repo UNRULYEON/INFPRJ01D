@@ -23,30 +23,18 @@ class Tables extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      data: null,
+      data: [],
     };
   }
 
   componentDidMount() {
-    fetch('http://142.93.141.46:8000/api/sales', {
-      mode: 'no-cors',
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(response => {
-        console.log(response) // this contains some useful information about the reponse
-        // return response; // convert readable stream to js object, if json is invalid, you will get the error here
-      })
-      // .then(data => this.setState({ data }))
+    fetch('https://cors-anywhere.herokuapp.com/http://142.93.141.46:8000/api/products', {headers: {'Origin': '',}})
+      .then(res => {return res.json()})
+      .then(data => this.setState({ data }))
       .catch(error => {
         console.log("something bad happened somewhere, rollback!" + error);
       });
-    // console.log(this.state.data);
   }
-
 
   render() {
     return (
@@ -56,16 +44,14 @@ class Tables extends Component {
             <TableHead>
               <TableRow>
                 <TableCell> {this.props.id} </TableCell>
-                <TableCell> {this.props.item} </TableCell>
-                <TableCell> {this.props.stock}</TableCell>
-
+                <TableCell> {this.props.name} </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {
-                this.props.data.map(row => (
-                  <TableRow>
-                    {this.props.renderRow(row).map(q => <TableCell>{q}</TableCell>)}
+                this.state.data.map((row, index) => (
+                  <TableRow key={index}>
+                    {this.props.renderRow(row).map(item => <TableCell>{item}</TableCell>)}
                   </TableRow>
                 ))
               }

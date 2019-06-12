@@ -26,13 +26,13 @@ const data = [{
   stock: 50
 },]
 
-const rowData = (row: { id: number; item: number; stock: number; }) => [row.id, row.item, row.stock]
+const rowData = (row: { id: number; name: string; stock: number; }) => [row.id, row.name, row.stock]
 
 const App: React.FC = () => {
   return (
     <div className="App">
       <Header />
-      <Table id="id" item="item" stock="stock" renderRow={rowData} data={data} />
+      <Table id="id" name="name" stock="stock" renderRow={rowData} data={data} />
       <Navbar />
     </div>
   );
