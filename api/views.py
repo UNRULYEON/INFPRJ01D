@@ -20,7 +20,14 @@ class SalesAll(generics.ListCreateAPIView):
     serializer_class = serializers.SalesSerializer
     def get_queryset(self):
         item = self.request.query_params.get('item')
+        year = self.request.query_params.get('year')
+        week = self.request.query_params.get('week')
         queryset = models.Sales.objects.filter(item=item)
+        print(year)
+        if year is not None:
+            queryset = models.Sales.objects.filter(year=year)
+        if week is not None:
+            queryset = models.Sales.objects.filter(week=week)
         queryset = queryset.order_by('-id')[:6]
         return queryset
 
@@ -47,10 +54,7 @@ def predict(request, pk):
     K.clear_session()
     model = load_model("./api/models/Product-model.model")
     model.load_weights("./api/models/weightTest-diffed.h5")
-    #result = model._make_predict_function(inputarray,1)
     result = model.predict(inputarray,1)
-    #scaler = load('./api/scaler.joblib')
-    #final = scaler.inverse_transform(result)[0][0]
     item = pd.DataFrame(jsonObject)
     item = item['stock']
     item = item.tail(1).values

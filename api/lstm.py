@@ -91,18 +91,18 @@ def df_preprocessing(data, fitted_scaler=True):
     
     #minmax Scaling
     scaled_features = encoded_features.copy()
-    scaler = None
-    min_max_col_names = ['stock']
-    features = scaled_features[min_max_col_names]
-    if(fitted_scaler):
-        scaler = MinMaxScaler().fit(features.values)
-        dump(scaler, './scaler.joblib') 
-        print("not found")
-    else:
-        scaler = load('./api/scaler.joblib')
-        print("loaded")
-    features = scaler.transform(features.values)
-    scaled_features[min_max_col_names] = features
+    #scaler = None
+    #min_max_col_names = ['stock']
+    #features = scaled_features[min_max_col_names]
+    #if(fitted_scaler):
+    #    scaler = MinMaxScaler().fit(features.values)
+    #    dump(scaler, './scaler.joblib') 
+    #    print("not found")
+    #else:
+    #    scaler = load('./api/scaler.joblib')
+    #    print("loaded")
+    #features = scaler.transform(features.values)
+    #scaled_features[min_max_col_names] = features
     return scaled_features
 
 def difference(dataset, interval=1):
