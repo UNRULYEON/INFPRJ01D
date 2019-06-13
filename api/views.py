@@ -33,7 +33,7 @@ class ProductsAll(generics.ListCreateAPIView):
 
 @api_view(['GET'])
 def predict(request, pk):
-    response = requests.get(f"http://localhost:8000/api/products?item={pk}")
+    response = requests.get(f"http://localhost:8000/api/sales?item={pk}")
     jsonObject = response.json()
     forecast_df = pd.DataFrame(jsonObject)
     forecast_df = forecast_df.drop('id', axis=1)
@@ -43,9 +43,14 @@ def predict(request, pk):
     data = np.array(forecast_df)
     inputarray = data.reshape((1,30,1))
     K.clear_session()
-    model = load_model("./api/models/Product.model")
+    model = load_model("./api/models/Product-model.model")
+    model.load_weights("./api/models/weightTest-diffed.h5")
     #result = model._make_predict_function(inputarray,1)
     result = model.predict(inputarray,1)
-    scaler = load('./api/scaler.joblib')
-    final = scaler.inverse_transform(result)[0][0]
-    return HttpResponse(final)
+    #scaler = load('./api/scaler.joblib')
+    #final = scaler.inverse_transform(result)[0][0]
+    item = pd.DataFrame(jsonObject)
+    item = item['stock']
+    item = item.tail(1).values
+    final = item[0] + result[0][0]
+    return HttpResponse(final.round())
