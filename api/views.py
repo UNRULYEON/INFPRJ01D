@@ -22,12 +22,11 @@ class SalesAll(generics.ListCreateAPIView):
         item = self.request.query_params.get('item')
         year = self.request.query_params.get('year')
         week = self.request.query_params.get('week')
+        location = self.request.query_params.get('location')
         queryset = models.Sales.objects.filter(item=item)
         print(year)
-        if year is not None:
-            queryset = models.Sales.objects.filter(year=year)
-        if week is not None:
-            queryset = models.Sales.objects.filter(week=week)
+        if year or week or location is not None:
+            queryset = models.Sales.objects.filter(year=year,week=week,location=location)
         queryset = queryset.order_by('-id')[:6]
         return queryset
 
@@ -56,6 +55,7 @@ def predict(request, pk):
     model.load_weights("./api/models/weightTest-diffed.h5")
     result = model.predict(inputarray,1)
     item = pd.DataFrame(jsonObject)
+
     item = item['stock']
     item = item.tail(1).values
     final = item[0] + result[0][0]
