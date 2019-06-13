@@ -21,7 +21,7 @@ class SalesAll(generics.ListCreateAPIView):
     def get_queryset(self):
         item = self.request.query_params.get('item')
         queryset = models.Sales.objects.filter(item=item)
-        queryset = queryset.order_by('-id')[:5]
+        queryset = queryset.order_by('-id')[:6]
         return queryset
 
 class ProductsAll(generics.ListCreateAPIView):
@@ -37,6 +37,7 @@ def predict(request, pk):
     jsonObject = response.json()
     forecast_df = pd.DataFrame(jsonObject)
     forecast_df = forecast_df.drop('id', axis=1)
+    forecast_df = forecast_df.head(5)
     forecast_df = forecast_df[::-1]
     forecast_df = df_preprocessing(forecast_df,False)
     forecast_df = forecast_df.values.flatten()
