@@ -104,3 +104,10 @@ def df_preprocessing(data, fitted_scaler=True):
     features = scaler.transform(features.values)
     scaled_features[min_max_col_names] = features
     return scaled_features
+
+def difference(dataset, interval=1):
+	diff = list()
+	for i in range(interval, len(dataset)):
+		value = dataset[i] - dataset[i - interval]
+		diff.append(value)
+	return pd.Series(diff)

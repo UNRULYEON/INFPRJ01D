@@ -9,7 +9,7 @@ from rest_framework.decorators import api_view
 from rest_framework.pagination import LimitOffsetPagination
 import requests
 from keras.models import load_model
-from api.lstm import createLaggedFrame, cleanUpDataframe, model_fit, forecast, df_preprocessing
+from api.lstm import createLaggedFrame, cleanUpDataframe, model_fit, forecast, df_preprocessing, difference
 import pandas as pd
 from joblib import load
 import keras.backend as K
@@ -37,6 +37,7 @@ def predict(request, pk):
     jsonObject = response.json()
     forecast_df = pd.DataFrame(jsonObject)
     forecast_df = forecast_df.drop('id', axis=1)
+    forecast_df['stock'] = difference(forecast_df['stock'])
     forecast_df = forecast_df.head(5)
     forecast_df = forecast_df[::-1]
     forecast_df = df_preprocessing(forecast_df,False)
