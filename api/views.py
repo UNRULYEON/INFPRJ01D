@@ -67,7 +67,7 @@ def predict(request, pk):
     previous_weeks = items['stock'].values
     pred = (items['stock'].values[-1] + result[0][0].round())
 
-    if(week == 52): week = 53     
+    if(week == 52 and prev == 2016): week = 53     
     response = requests.get(f"http://localhost:8000/api/sales?item={pk}&year={prev}&week={week}&location={loc}&reverse=False")
     jsonObject = response.json()
     sample_df = pd.DataFrame(jsonObject)
