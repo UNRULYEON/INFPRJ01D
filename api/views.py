@@ -19,15 +19,20 @@ class SalesAll(generics.ListCreateAPIView):
     """
     serializer_class = serializers.SalesSerializer
     def get_queryset(self):
+        queryset = models.Sales.objects.all()
         item = self.request.query_params.get('item')
         year = self.request.query_params.get('year')
         week = self.request.query_params.get('week')
         location = self.request.query_params.get('location')
-        queryset = models.Sales.objects.filter(item=item)
-        print(year)
+        reverse = self.request.query_params.get('reverse')
+        if item is not None:
+            queryset = models.Sales.objects.filter(item=item)
         if year or week or location is not None:
             queryset = models.Sales.objects.filter(year=year,week=week,location=location)
-        queryset = queryset.order_by('-id')[:6]
+        if reverse == 'False':
+            queryset = queryset.order_by('id')[:6]
+        else:
+            queryset = queryset.order_by('-id')[:6]
         return queryset
 
 class ProductsAll(generics.ListCreateAPIView):
