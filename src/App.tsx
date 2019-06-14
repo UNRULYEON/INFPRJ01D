@@ -6,6 +6,7 @@ import Header from './components/header';
 import Navbar from './components/navbar';
 import Table from './components/table';
 
+
 // let id = 0;
 // function createData(id: number, item: number, stock: number) {
 //   id += 1;

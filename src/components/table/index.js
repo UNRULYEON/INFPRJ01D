@@ -4,7 +4,11 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import {Line} from 'react-chartjs-2';
+import { relative } from 'path';
+import Popup from '../Popup'
 
 // Placeholder
 let id = 0;
@@ -19,11 +23,13 @@ function createData(item, stock) {
 //   createData(1, 31),
 // ];
 
+
 class Tables extends Component {
   constructor(props) {
     super(props)
     this.state = {
       data: [],
+      pred: [],
       dialogIsOpen: false,
       key: 0,
     };
@@ -35,7 +41,7 @@ class Tables extends Component {
       .then(data => this.setState({ data }))
       .catch(error => {
         console.log("something bad happened somewhere, rollback!" + error);
-      });
+      })
   }
 
   // handleRowclick puts the selected row index to the key state and also calls the handeclick method which changes the dialogIsOpen state
@@ -54,21 +60,23 @@ class Tables extends Component {
     return (
       <div>
         <Paper>
-          <Table>
+          <Table>         
             <TableHead>
               <TableRow>
                 <TableCell> {this.props.id} </TableCell>
-                <TableCell> {this.props.name} </TableCell>
+                <TableCell> {this.props.name}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {
                 this.state.data.map((row, index) => (
                   <TableRow onClick={()=>this.handleRowClick(index)} key={index}>
-                    {this.props.renderRow(row).map(item => <TableCell>{item}</TableCell>)}
+                    {this.props.renderRow(row).map(item =>  <TableCell>{item}</TableCell>)}
+                    <Popup/>
                   </TableRow>
                 ))
               }
+              
             </TableBody>
           </Table>
 
