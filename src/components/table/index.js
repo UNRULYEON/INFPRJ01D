@@ -125,7 +125,7 @@ class Tables extends Component {
             </TableHead>
             <TableBody>
               {this.state.data.map((row, index) => (
-                <TableRow onClick={()=>this.handleRowClick(index, row.name)} key={index}>
+                <TableRow hover onClick={()=>this.handleRowClick(index, row.name)} key={index}>
                   {this.props.renderRow(row).map((item, index) =>  <TableCell key={index}>{item}</TableCell>)}
                   {/* <Popup/> */}
                 </TableRow>
