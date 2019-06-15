@@ -27,13 +27,13 @@ import Table from './components/table';
 //   stock: 50
 // },]
 
-const rowData = (row: { id: number; name: string; stock: number; }) => [row.id, row.name, row.stock]
+const rowData = (row: { id: number; name: string; }) => [row.id, row.name]
 
 const App: React.FC = () => {
   return (
     <div className="App">
       <Header />
-      <Table id="id" name="name" renderRow={rowData}/>
+      <Table id="ID" name="Name" renderRow={rowData}/>
       <Navbar />
     </div>
   );

@@ -13,9 +13,11 @@
     "react-chartjs-2": "^2.7.6",
     "react-charts": "^2.0.0-alpha.12",
     "react-dom": "^16.8.6",
+    "react-google-charts": "^3.0.13",
     "react-scripts": "3.0.0",
     "reactjs-popup": "^1.4.1",
-    "typescript": "3.4.5"
+    "typescript": "3.4.5",
+    "victory": "^32.2.3"
   },
   "scripts": {
     "start": "react-scripts start",
